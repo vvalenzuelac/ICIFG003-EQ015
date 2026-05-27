@@ -1,0 +1,45 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  
+  <div class="card p-5 text-center shadow-lg" style="width: 28rem; backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.90) !important;">
+    
+    <div class="mb-4">
+      <div class="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center mb-3 shadow" style="width: 85px; height: 85px;">
+        <i class="bi bi-shield-lock-fill" style="font-size: 2.8rem;"></i>
+      </div>
+      
+      <h2 class="text-primary fw-bold mb-1" style="letter-spacing: -0.5px;">Inspectoría Web</h2>
+      <p class="text-muted small text-uppercase fw-bold mb-0" style="letter-spacing: 1.5px; font-size: 0.75rem;">Gestión de Protocolos</p>
+    </div>
+
+<form class="text-start">
+      
+      <div class="mb-3">
+        <label class="form-label text-secondary fw-semibold small mb-1">Nombre de Usuario</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0 text-muted">
+            <i class="bi bi-person-fill"></i>
+          </span>
+          <input type="text" class="form-control border-start-0 ps-0" placeholder="Ej: admin" name="usuario" [(ngModel)]="usuario" autocomplete="username">
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label class="form-label text-secondary fw-semibold small mb-1">Contraseña</label>
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0 text-muted">
+            <i class="bi bi-lock-fill"></i>
+          </span>
+          <input type="password" class="form-control border-start-0 ps-0" placeholder="••••••••" name="contrasena" [(ngModel)]="contrasena" autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="alert alert-danger py-2 small fw-bold mb-3" *ngIf="errorLogin">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> Usuario o contraseña incorrectos.
+      </div>
+
+      <button type="button" class="btn btn-primary btn-lg w-100 fw-bold py-2.5 shadow-sm d-flex justify-content-center align-items-center gap-2" (click)="ingresar()">
+        <span>Iniciar Sesión</span>
+        <i class="bi bi-box-arrow-in-right fs-5"></i>
+      </button>
+      
+    </form>
