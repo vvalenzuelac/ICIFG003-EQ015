@@ -1,15 +1,8 @@
-/* 1. Importamos Bootstrap */
 @import 'bootstrap/dist/css/bootstrap.min.css';
-
-/* 2. Importamos Íconos de Bootstrap */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-
-/* 3. Importamos la fuente 'Poppins' de Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* =========================================
-   ESTILOS GLOBALES DEL SISTEMA
-========================================= */
+
 body {
   font-family: 'Poppins', sans-serif;
   /* Aquí llamamos a tu imagen PNG */

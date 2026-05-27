@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProtocoloService } from '../../services/protocolo';
-import { jsPDF } from 'jspdf'; // <-- IMPORTAMOS LA LIBRERÍA DE PDF
+import { jsPDF } from 'jspdf'; 
 
 @Component({
   selector: 'app-protocolos',
@@ -23,7 +23,7 @@ export class ProtocolosComponent implements OnInit {
   mostrarFormulario: boolean = false;
   protocoloActual: any = {};
 
-  // NUEVAS VARIABLES PARA EL MODAL DETALLE
+  // Variables para el modal detalle
   mostrarModal: boolean = false;
   protocoloSeleccionado: any = {};
 
@@ -34,9 +34,20 @@ export class ProtocolosComponent implements OnInit {
   }
 
   cargarTodos() {
-    this.protocoloService.getProtocolos().subscribe(data => {
-      this.listaCompleta = data;
-      this.listaProtocolos = data;
+    this.protocoloService.getProtocolos().subscribe({
+      next: (data) => {
+        
+        this.listaCompleta = data;
+        
+        
+        this.listaProtocolos = [...this.listaCompleta]; 
+        
+        
+        this.buscar(); 
+      },
+      error: (err) => {
+        console.error("Error al conectar con la base de datos:", err);
+      }
     });
   }
 
@@ -46,6 +57,7 @@ export class ProtocolosComponent implements OnInit {
       const coincideNombre = !this.filtroNombre || (p.nombreAlumno && p.nombreAlumno.toLowerCase().includes(this.filtroNombre.toLowerCase()));
       const coincideTipo = !this.filtroTipo || (p.tipoProtocolo && p.tipoProtocolo === this.filtroTipo);
       const coincideFecha = !this.filtroFecha || (p.fecha && p.fecha === this.filtroFecha);
+      
       return coincideRut && coincideNombre && coincideTipo && coincideFecha;
     });
   }
@@ -58,13 +70,13 @@ export class ProtocolosComponent implements OnInit {
     this.buscar();
   }
 
-  // FUNCIÓN PARA ABRIR EL MODAL DE DESCRIPCIÓN
+  // Función para abrir el modal de descripción
   verDetalle(protocolo: any) {
     this.protocoloSeleccionado = { ...protocolo };
     this.mostrarModal = true;
   }
 
-  // FUNCIÓN PARA GENERAR EL REPORTE PDF
+  // Función para generar el reporte PDF
   exportarPDF() {
     const doc = new jsPDF();
 
@@ -93,10 +105,9 @@ export class ProtocolosComponent implements OnInit {
     doc.line(14, y + 3, 195, y + 3);
     y += 12;
 
-    // Listado de filas (Exporta exactamente lo que está visible en pantalla)
+    // Listado de filas
     doc.setFont('Helvetica', 'normal');
     this.listaProtocolos.forEach(p => {
-      // Si el PDF se llena, creamos una nueva página automáticamente
       if (y > 270) { 
         doc.addPage(); 
         y = 20; 
@@ -109,7 +120,7 @@ export class ProtocolosComponent implements OnInit {
     });
 
     // Descarga automática del archivo
-    doc.save('Reporte_Inspectoría_Protocolos.pdf');
+    doc.save('Reporte_Inspectoria_Protocolos.pdf');
   }
 
   prepararNuevo() {
